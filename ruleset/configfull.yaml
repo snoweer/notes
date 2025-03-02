@@ -20,49 +20,195 @@ proxy-providers:
     url: "https://bigmesub.azure-api.net/simida/api/v1/client/subscribe?token=84f38b21b69c638fb8f4943603d2fad6"
 
 # 用于下载订阅时指定UA
-global-ua: clash.meta
-    
-# 全局配置
-port: 7890
-socks-port: 7891
-redir-port: 7892
-mixed-port: 7893
-tproxy-port: 7894
-ipv6: true
-allow-lan: true
-unified-delay: true
-tcp-concurrent: true
-authentication:
-  - snoweer:Kunshan1112
+global-ua: clash
 
+# 规则订阅
+rule-providers:
+  # 秋风广告拦截规则
+  # https://awavenue.top
+  # 由于 Anti-AD 误杀率高，本项目已在 1.11-241024 版本更换秋风广告规则
+  AWAvenue-Ads:
+    type: http
+    behavior: domain
+    format: yaml
+    # path可为空(仅限clash.meta 1.15.0以上版本)
+    path: ./rule_provider/AWAvenue-Ads.yaml
+    url: "https://ghp.ci/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
+    interval: 600
+
+# 全局配置
+# HTTP(S) 代理服务器端口
+port: 7890
+
+# SOCKS5 代理端口
+socks-port: 7891
+
+# 透明代理端口，用于 Linux 和 MacOS
+redir-port: 7892
+
+# HTTP(S) 和 SOCKS 代理混合端口
+mixed-port: 10801
+
+# Transparent proxy server port for Linux (TProxy TCP and TProxy UDP)
+tproxy-port: 7893
+
+# 开启 IPv6 总开关，关闭阻断所有 IPv6 链接和屏蔽 DNS 请求 AAAA 记录
+ipv6: true
+
+# 允许局域网连接
+allow-lan: true
+
+# 绑定 IP 地址，仅作用于 allow-lan 为 true，'*'表示所有地址
+bind-address: "*"
+
+# http,socks 入口的验证用户名，密码
+authentication:
+  - "snoweer:Kunshan1112"
+
+# 设置跳过验证的 IP 段
+skip-auth-prefixes: 
+  - 127.0.0.1/8
+  - ::1/128
+
+# 允许连接的 IP 地址段，仅作用于 allow-lan 为 true, 默认值为 0.0.0.0/0 和::/0
+lan-allowed-ips: 
+  - 0.0.0.0/0
+  - ::/0
+# 禁止连接的 IP 地址段，黑名单优先级高于白名单，默认值为空
+lan-disallowed-ips: 
+#  - 192.168.0.3/32
+
+#  find-process-mode has 3 values:always, strict, off
+#  - always, 开启，强制匹配所有进程
+#  - strict, 默认，由 mihomo 判断是否开启
+#  - off, 不匹配进程，推荐在路由器上使用此模式
+find-process-mode: strict
+
+# 统一延迟
+# 更换延迟计算方式,去除握手等额外延迟  
+unified-delay: true
+
+# TCP 并发
+# 同时对所有ip进行连接，返回延迟最低的地址
+tcp-concurrent: true
+
+#自定义 geodata url
+# Geo 数据库下载地址
+# 使用 FastGit 代理 (https://fgit.cf https://fastly.jsdelivr.net)
+# 源地址 https://github.com/MetaCubeX/meta-rules-dat
+# 可以更换镜像站但不要更换其他数据库，可能导致无法启动
+geox-url:
+  geosite: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geosite.dat"
+  mmdb: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.metadb"
+  geoip: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/geoip.dat"
+  asn: "https://fastly.jsdelivr.net/gh/MetaCubeX/meta-rules-dat@release/GeoLite2-ASN.mmdb"
+
+# 改变geoip文件类型, mmdb 或 dat,true 是 dat, 默认 false 是 mmdb
 geodata-mode: false
+
 # GEO 文件加载模式（standard: 标准加载器/memconservative: 专为内存受限（小内存）设备优化的加载器（默认值））
 geodata-loader: standard
+# 是否自动更新 geodata
 geo-auto-update: true
-geo-update-interval: 48
-geox-url:
-  geosite: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geosite.dat"
-  mmdb: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.metadb"
-  geoip: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/geoip-lite.dat"
-  asn: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/meta-rules-dat/releases/download/latest/Geolite2-ASN.mmdb"
+# 更新间隔，单位：小时
+geo-update-interval: 24
+
+# 运行模式
+# rule 规则匹配
+# global 全局代理 (需要在 GLOBAL 策略组选择代理/策略)
+# direct 全局直连
+mode: rule
 
 # 控制面板
-external-controller: 0.0.0.0:9090
+external-controller: 0.0.0.0:9095
 secret: ""
-external-ui: "/etc/mihomo/run/ui"
+external-ui: "./run/ui"
 external-ui-name: MetaCubeXD
 external-ui-url: "https://mirror.ghproxy.com/https://github.com/MetaCubeX/metacubexd/archive/refs/heads/gh-pages.zip"
 
-# 匹配进程 always/strict/off
-find-process-mode: strict
+# 全局 TLS 指纹，优先低于 proxy 内的 client-fingerprint
+# 可选： "chrome","firefox","safari","ios","random","none" options.
+# Utls is currently support TLS transport in TCP/grpc/WS/HTTP for VLESS/Vmess and trojan.
 global-client-fingerprint: chrome
+
+# TCP Keep Alive 的最大空闲时间
 keep-alive-idle: 600
+# 缓解移动设备耗电问题
+# https://github.com/vernesong/OpenClash/issues/2614
 keep-alive-interval: 30
 
-# 策略组选择和fakeip缓存
+# 存储 select 选择记录
 profile:
   store-selected: true
+
+# 持久化 fake-ip
   store-fake-ip: true
+
+# 自动同步时间以防止时间不准导致无法正常联网
+ntp:
+  enable: true
+  # 是否同步至系统时间，需要 root/管理员权限
+  write-to-system: false
+  server: time.apple.com
+  port: 123
+  interval: 30
+
+# Tun 配置
+tun:
+  enable: false
+  stack: mixed # system/gvisor/mixed
+  dns-hijack:
+    - "any:53"
+    - "tcp://any:53"
+  # - 0.0.0.0:53 # 需要劫持的 DNS
+  auto-detect-interface: true # 自动识别出口网卡
+  auto-route: true # 配置路由表
+  # mtu: 9000 # 最大传输单元
+  # gso: false # 启用通用分段卸载，仅支持 Linux
+  # gso-max-size: 65536 # 通用分段卸载包的最大大小
+  auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
+  # strict-route: true # 将所有连接路由到 tun 来防止泄漏，但你的设备将无法其他设备被访问
+  route-address-set: # 将指定规则集中的目标 IP CIDR 规则添加到防火墙, 不匹配的流量将绕过路由, 仅支持 Linux，且需要 nftables，`auto-route` 和 `auto-redirect` 已启用。
+    - ruleset-1
+    - ruleset-2
+  route-exclude-address-set: # 将指定规则集中的目标 IP CIDR 规则添加到防火墙, 匹配的流量将绕过路由, 仅支持 Linux，且需要 nftables，`auto-route` 和 `auto-redirect` 已启用。
+    - ruleset-3
+    - ruleset-4
+  route-address: # 启用 auto-route 时使用自定义路由而不是默认路由
+    - 0.0.0.0/1
+    - 128.0.0.0/1
+    - "::/1"
+    - "8000::/1"
+  # inet4-route-address: # 启用 auto-route 时使用自定义路由而不是默认路由（旧写法）
+  #   - 0.0.0.0/1
+  #   - 128.0.0.0/1
+  # inet6-route-address: # 启用 auto-route 时使用自定义路由而不是默认路由（旧写法）
+  #   - "::/1"
+  #   - "8000::/1"
+  # endpoint-independent-nat: false # 启用独立于端点的 NAT
+  # include-interface: # 限制被路由的接口。默认不限制，与 `exclude-interface` 冲突
+  #   - "lan0"
+  # exclude-interface: # 排除路由的接口，与 `include-interface` 冲突
+  #   - "lan1"
+  # include-uid: # UID 规则仅在 Linux 下被支持，并且需要 auto-route
+  # - 0
+  # include-uid-range: # 限制被路由的的用户范围
+  # - 1000:9999
+  # exclude-uid: # 排除路由的的用户
+  #- 1000
+  # exclude-uid-range: # 排除路由的的用户范围
+  # - 1000:9999
+
+  # Android 用户和应用规则仅在 Android 下被支持
+  # 并且需要 auto-route
+
+  # include-android-user: # 限制被路由的 Android 用户
+  # - 0
+  # - 10
+  # include-package: # 限制被路由的 Android 应用包名
+  # - com.android.chrome
+  # exclude-package: # 排除被路由的 Android 应用包名
+  # - com.android.captiveportallogin
   
 # 流量嗅探
 sniffer:
@@ -83,18 +229,6 @@ sniffer:
     - "+.push.apple.com"
     - "+.apple.com"
     
-# 代理模式
-tun:
-  enable: true
-  stack: mixed
-  mtu: 9000
-  dns-hijack:
-    - "any:53"
-    - "tcp://any:53"
-  auto-route: true
-  auto-redirect: true
-  auto-detect-interface: true
-  
 # DNS模块
 dns:
   enable: true
@@ -110,6 +244,7 @@ dns:
   fake-ip-filter:
     - "+.lan"
     - "+.local"
+    - localhost.ptlogin2.qq.com
     - "rule-set:private_domain,cn_domain"
     - "+.services.googleapis.cn"
     - "+.xn--ngstr-lra8j.com"
@@ -143,11 +278,11 @@ proxies:
   udp: true
  
 # 锚点
-pr: &pr {type: select, proxies: [🚀 节点选择, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 韩国自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇨🇳 台湾节点, 🇰🇷 韩国节点, 🇺🇲 美国节点, 🎥 奈飞节点, 🌐 全部节点, 🟢 直连]}
+pr: &pr {type: select, proxies: [🚀 节点选择, 🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 韩国自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇨🇳 台湾节点, 🇰🇷 韩国节点, 🇺🇲 美国节点, 🌐 其它地区, 🎥 奈飞节点, 🌐 全部节点, 🟢 直连]}
 
 # 策略组
 proxy-groups:
-  - {name: 🚀 节点选择, type: select, proxies: [🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 韩国自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇨🇳 台湾节点, 🇰🇷 韩国节点, 🇺🇲 美国节点, 🎥 奈飞节点, 🌐 全部节点, 🟢 直连]}
+  - {name: 🚀 节点选择, type: select, proxies: [🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 韩国自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇨🇳 台湾节点, 🇰🇷 韩国节点, 🇺🇲 美国节点, 🌐 其它地区, 🎥 奈飞节点, 🌐 全部节点, 🟢 直连]}
   - {name: 📹 YouTube,!!merge <<: *pr}
   - {name: 🍀 Google,!!merge <<: *pr}
   - {name: 🤖 ChatGPT,!!merge <<: *pr}
@@ -168,6 +303,7 @@ proxy-groups:
   - {name: 🇨🇳 台湾节点, type: select, include-all: true, filter: "(?i)台|新北|彰化|TW|Taiwan"}
   - {name: 🇰🇷 韩国节点, type: select, include-all: true, filter: "(?i)KR|Korea|KOR|首尔|韩|韓"}
   - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states"}
+  - {name: 🌐 其它地区, type: select, include-all: true, filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|KR|港|hk|hongkong|Korea|KOR|首尔|韩|韓|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*"}
   - {name: 🎥 奈飞节点, type: select, include-all: true, filter: "(?i)NF|奈飞|解锁|Netflix|NETFLIX|Media"}
   - {name: 🔯 香港故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
   - {name: 🔯 日本故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
