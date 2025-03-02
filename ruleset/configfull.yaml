@@ -255,23 +255,22 @@ dns:
     - "+.ntp.ntsc.ac.cn"
     - "+.cn.ntp.org.cn"
   default-nameserver:
-    - 10.10.10.53
-  # - 119.29.29.29
+    - 223.5.5.5
+    - 119.29.29.29
   proxy-server-nameserver:
-    - 10.10.10.53
-  # - 119.29.29.29
+    - 223.5.5.5
+    - 119.29.29.29
   nameserver:
-    - 10.10.10.53
-  # - 119.29.29.29
+    - 223.5.5.5
+    - 119.29.29.29
   nameserver-policy:
     "rule-set:private_domain,cn_domain":
-    - 10.10.10.53
-  # - 119.29.29.29
+    - 223.5.5.5
+    - 119.29.29.29
     "rule-set:geolocation-!cn":
     - "https://dns.cloudflare.com/dns-query"
     - "https://dns.google/dns-query"
- 
-   
+
 proxies:
 - name: "🟢 直连"
   type: direct
