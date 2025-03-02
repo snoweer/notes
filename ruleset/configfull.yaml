@@ -283,6 +283,7 @@ pr: &pr {type: select, proxies: [🚀 节点选择, 🔯 香港故转, 🔯 日�
 # 策略组
 proxy-groups:
   - {name: 🚀 节点选择, type: select, proxies: [🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 韩国自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇨🇳 台湾节点, 🇰🇷 韩国节点, 🇺🇲 美国节点, 🌐 其它地区, 🎥 奈飞节点, 🌐 全部节点, 🟢 直连]}
+# - {name: 广告拦截, type: select, proxies: [REJECT, 🟢 直连, 🚀 节点选择]}
   - {name: 📹 YouTube,!!merge <<: *pr}
   - {name: 🍀 Google,!!merge <<: *pr}
   - {name: 🤖 ChatGPT,!!merge <<: *pr}
@@ -320,6 +321,7 @@ rules:
   - RULE-SET,direct1,🟢 直连
   - RULE-SET,apple_domain,🍎 Apple
   - RULE-SET,proxylite,🚀 节点选择
+# - RULE-SET,AWAvenue-Ads,广告拦截
   - RULE-SET,ai,🤖 ChatGPT
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
   - RULE-SET,youtube_domain,📹 YouTube
@@ -341,13 +343,11 @@ rules:
 rule-anchor:
   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
-  qcy: &qcy {type: http, interval: 86400, behavior: domain, format: text}
   class: &class {type: http, interval: 86400, behavior: classical, format: text}
 rule-providers: 
   private_domain: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
   direct1: {!!merge <<: *class, url: "https://raw.githubusercontent.com/snoweer/notes/refs/heads/master/ruleset/Direct.list"}
-  proxylite: {!!merge <<: *qcy, url: "https://raw.githubusercontent.com/snoweer/notes/refs/heads/master/ruleset/ProxyLite.list"}
-#  ai: {!!merge <<: *qcy, url: "https://raw.githubusercontent.com/snoweer/notes/refs/heads/master/ruleset/AI.list" }
+  proxylite: {!!merge <<: *class, url: "https://raw.githubusercontent.com/snoweer/notes/refs/heads/master/ruleset/ProxyLite.list"}
   ai: {!!merge <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-chat-!cn.mrs" }
   youtube_domain: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
   google_domain: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
