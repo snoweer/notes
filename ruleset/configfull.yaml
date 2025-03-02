@@ -33,7 +33,7 @@ rule-providers:
     format: yaml
     # path可为空(仅限clash.meta 1.15.0以上版本)
     path: ./rule_provider/AWAvenue-Ads.yaml
-    url: "https://ghp.ci/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
+    url: "https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
     interval: 600
 
 # 全局配置
