@@ -169,27 +169,27 @@ tun:
   # auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
   # strict-route: true # 将所有连接路由到 tun 来防止泄漏，但你的设备将无法其他设备被访问
   # route-address-set: # 将指定规则集中的目标 IP CIDR 规则添加到防火墙, 不匹配的流量将绕过路由, 仅支持 Linux，且需要 nftables，`auto-route` 和 `auto-redirect` 已启用。
-  #  - ruleset-1
-  #  - ruleset-2
+  # - ruleset-1
+  # - ruleset-2
   # route-exclude-address-set: # 将指定规则集中的目标 IP CIDR 规则添加到防火墙, 匹配的流量将绕过路由, 仅支持 Linux，且需要 nftables，`auto-route` 和 `auto-redirect` 已启用。
-  #  - ruleset-3
-  #  - ruleset-4
+  # - ruleset-3
+  # - ruleset-4
   # route-address: # 启用 auto-route 时使用自定义路由而不是默认路由
+  # - 0.0.0.0/1
+  # - 128.0.0.0/1
+  # - "::/1"
+  # - "8000::/1"
+  # inet4-route-address: # 启用 auto-route 时使用自定义路由而不是默认路由（旧写法）
   #  - 0.0.0.0/1
   #  - 128.0.0.0/1
+  # inet6-route-address: # 启用 auto-route 时使用自定义路由而不是默认路由（旧写法）
   #  - "::/1"
   #  - "8000::/1"
-  # inet4-route-address: # 启用 auto-route 时使用自定义路由而不是默认路由（旧写法）
-  #   - 0.0.0.0/1
-  #   - 128.0.0.0/1
-  # inet6-route-address: # 启用 auto-route 时使用自定义路由而不是默认路由（旧写法）
-  #   - "::/1"
-  #   - "8000::/1"
   # endpoint-independent-nat: false # 启用独立于端点的 NAT
   # include-interface: # 限制被路由的接口。默认不限制，与 `exclude-interface` 冲突
-  #   - "lan0"
+  #  - "lan0"
   # exclude-interface: # 排除路由的接口，与 `include-interface` 冲突
-  #   - "lan1"
+  #  - "lan1"
   # include-uid: # UID 规则仅在 Linux 下被支持，并且需要 auto-route
   # - 0
   # include-uid-range: # 限制被路由的的用户范围
@@ -256,17 +256,17 @@ dns:
     - "+.cn.ntp.org.cn"
   default-nameserver:
     - 10.10.10.53
-  #  - 119.29.29.29
+  # - 119.29.29.29
   proxy-server-nameserver:
     - 10.10.10.53
-  #  - 119.29.29.29
+  # - 119.29.29.29
   nameserver:
     - 10.10.10.53
-  #  - 119.29.29.29
+  # - 119.29.29.29
   nameserver-policy:
     "rule-set:private_domain,cn_domain":
     - 10.10.10.53
-  #  - 119.29.29.29
+  # - 119.29.29.29
     "rule-set:geolocation-!cn":
     - "https://dns.cloudflare.com/dns-query"
     - "https://dns.google/dns-query"
