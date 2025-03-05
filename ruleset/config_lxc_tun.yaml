@@ -8,7 +8,9 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "https://117.18.7.44:18088/api/v1/client/subscribe?token=93a8d31e91be6ef0d4a4ae515fc8d2c2"
+    url: ""
+    override:
+       additional-prefix: "[Airport_01]"
   Airport_02:
     type: http
     interval: 1800
@@ -17,24 +19,13 @@ proxy-providers:
       url: https://www.gstatic.com/generate_204
       interval: 300
     proxy: 🟢 直连
-    url: "https://bigmesub.azure-api.net/simida/api/v1/client/subscribe?token=84f38b21b69c638fb8f4943603d2fad6"
-
-# 用于下载订阅时指定UA
-global-ua: clash
+    url: ""
+    override:
+       additional-prefix: "[Airport_02]"
 
 # 规则订阅
 rule-providers:
-  # 秋风广告拦截规则
-  # https://awavenue.top
-  # 由于 Anti-AD 误杀率高，本项目已在 1.11-241024 版本更换秋风广告规则
-  AWAvenue-Ads:
-    type: http
-    behavior: domain
-    format: yaml
-    # path可为空(仅限clash.meta 1.15.0以上版本)
-    path: ./rule_provider/AWAvenue-Ads.yaml
-    url: "https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"
-    interval: 600
+
 
 # 全局配置
 # HTTP(S) 代理服务器端口
@@ -155,18 +146,19 @@ ntp:
 
 # Tun 配置
 tun:
-  enable: false
+  enable: true
   stack: mixed # system/gvisor/mixed
   dns-hijack:
     - "any:53"
     - "tcp://any:53"
   # - 0.0.0.0:53 # 需要劫持的 DNS
+  device: tun
   auto-detect-interface: true # 自动识别出口网卡
   auto-route: true # 配置路由表
   mtu: 9000 # 最大传输单元
-  # gso: false # 启用通用分段卸载，仅支持 Linux
-  # gso-max-size: 65536 # 通用分段卸载包的最大大小
-  # auto-redirect: false # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
+  gso: true # 启用通用分段卸载，仅支持 Linux
+  gso-max-size: 65536 # 通用分段卸载包的最大大小
+  auto-redirect: true # 自动配置 iptables 以重定向 TCP 连接。仅支持 Linux。带有 auto-redirect 的 auto-route 现在可以在路由器上按预期工作，无需干预。
   # strict-route: true # 将所有连接路由到 tun 来防止泄漏，但你的设备将无法其他设备被访问
   # route-address-set: # 将指定规则集中的目标 IP CIDR 规则添加到防火墙, 不匹配的流量将绕过路由, 仅支持 Linux，且需要 nftables，`auto-route` 和 `auto-redirect` 已启用。
   # - ruleset-1
@@ -281,8 +273,9 @@ pr: &pr {type: select, proxies: [🚀 节点选择, 🔯 香港故转, 🔯 日�
 
 # 策略组
 proxy-groups:
+# 应用分流
   - {name: 🚀 节点选择, type: select, proxies: [🔯 香港故转, 🔯 日本故转, 🔯 狮城故转, ♻️ 香港自动, ♻️ 日本自动, ♻️ 狮城自动, ♻️ 韩国自动, ♻️ 美国自动, ♻️ 自动选择, 🇭🇰 香港节点, 🇯🇵 日本节点, 🇸🇬 狮城节点, 🇨🇳 台湾节点, 🇰🇷 韩国节点, 🇺🇲 美国节点, 🌐 其它地区, 🎥 奈飞节点, 🌐 全部节点, 🟢 直连]}
-# - {name: 广告拦截, type: select, proxies: [REJECT, 🟢 直连, 🚀 节点选择]}
+  - {name: 广告拦截, type: select, proxies: [REJECT, 🟢 直连, 🚀 节点选择]}
   - {name: 📹 YouTube,!!merge <<: *pr}
   - {name: 🍀 Google,!!merge <<: *pr}
   - {name: 🤖 ChatGPT,!!merge <<: *pr}
@@ -297,6 +290,7 @@ proxy-groups:
   - {name: 🍎 Apple, type: select, proxies: [🟢 直连, 🚀 节点选择]}
   - {name: 🎯 全球直连, type: select, proxies: [🟢 直连, 🚀 节点选择]}
   - {name: 🐟 漏网之鱼,!!merge <<: *pr}
+# 地区节点筛选
   - {name: 🇭🇰 香港节点, type: select, include-all: true, filter: "(?i)港|HK|hk|Hong Kong|HongKong|hongkong"}
   - {name: 🇯🇵 日本节点, type: select, include-all: true, filter: "(?i)日本|川日|东京|大阪|泉日|埼玉|沪日|深日|JP|Japan"}
   - {name: 🇸🇬 狮城节点, type: select, include-all: true, filter: "(?i)新加坡|坡|狮城|SG|Singapore"}
@@ -305,22 +299,27 @@ proxy-groups:
   - {name: 🇺🇲 美国节点, type: select, include-all: true, filter: "(?i)美|us|unitedstates|united states"}
   - {name: 🌐 其它地区, type: select, include-all: true, filter: "(?i)^(?!.*(?:🇭🇰|🇯🇵|🇺🇸|🇸🇬|🇨🇳|KR|港|hk|hongkong|Korea|KOR|首尔|韩|韓|台|tw|taiwan|日|jp|japan|新|sg|singapore|美|us|unitedstates)).*"}
   - {name: 🎥 奈飞节点, type: select, include-all: true, filter: "(?i)NF|奈飞|解锁|Netflix|NETFLIX|Media"}
+# 地区节点故障转移
   - {name: 🔯 香港故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
   - {name: 🔯 日本故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
   - {name: 🔯 狮城故转, type: fallback, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新|SG|(?i)Singapore))^((?!(港|台|韩|日|美)).)*$" }
+# 节点测速
   - {name: ♻️ 香港自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(港|HK|(?i)Hong))^((?!(台|日|韩|新|深|美)).)*$"}
   - {name: ♻️ 日本自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(日|JP|(?i)Japan))^((?!(港|台|韩|新|美)).)*$" }
   - {name: ♻️ 狮城自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(新|SG|(?i)Singapore))^((?!(港|台|韩|日|美)).)*$" }
   - {name: ♻️ 韩国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(韩|KR|(?i)Korea))^((?!(港|台|新|日|美)).)*$" }
   - {name: ♻️ 美国自动, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "(?=.*(美|US|(?i)States|America))^((?!(港|台|日|韩|新)).)*$"}
   - {name: ♻️ 自动选择, type: url-test, include-all: true, tolerance: 20, interval: 300, filter: "^((?!(直连)).)*$"}
+# 全部节点查看
   - {name: 🌐 全部节点, type: select, include-all: true}
+
+# 规则
 rules:
   - RULE-SET,private_domain,🟢 直连
   - RULE-SET,direct1,🟢 直连
   - RULE-SET,apple_domain,🍎 Apple
   - RULE-SET,proxylite,🚀 节点选择
-# - RULE-SET,AWAvenue-Ads,广告拦截
+  - RULE-SET,AWAvenue-Ads,广告拦截
   - RULE-SET,ai,🤖 ChatGPT
   - RULE-SET,github_domain,👨🏿‍💻 GitHub
   - RULE-SET,youtube_domain,📹 YouTube
@@ -339,14 +338,20 @@ rules:
   - RULE-SET,telegram_ip,📲 Telegram,no-resolve
   - RULE-SET,cn_ip,🎯 全球直连
   - MATCH,🐟 漏网之鱼
+# 规则锚点
 rule-anchor:
   ip: &ip {type: http, interval: 86400, behavior: ipcidr, format: mrs}
   domain: &domain {type: http, interval: 86400, behavior: domain, format: mrs}
   class: &class {type: http, interval: 86400, behavior: classical, format: text}
+  yaml: &yaml {type: http, interval: 600, behavior: domain, format: yaml}
+# 规则提供链接
 rule-providers: 
+#基于域名的规则
   private_domain: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/private.mrs"}
   direct1: {!!merge <<: *class, url: "https://raw.githubusercontent.com/snoweer/notes/refs/heads/master/ruleset/Direct.list"}
   proxylite: {!!merge <<: *class, url: "https://raw.githubusercontent.com/snoweer/notes/refs/heads/master/ruleset/ProxyLite.list"}
+  # 秋风广告拦截规则 https://awavenue.top 由于 Anti-AD 误杀率高，更换秋风广告规则
+  AWAvenue-Ads: {!!merge <<: *yaml, url: "https://ghfast.top/https://raw.githubusercontent.com/TG-Twilight/AWAvenue-Ads-Rule/refs/heads/main/Filters/AWAvenue-Ads-Rule-Clash.yaml"}
   ai: {!!merge <<: *domain, url: "https://github.com/MetaCubeX/meta-rules-dat/raw/refs/heads/meta/geo/geosite/category-ai-chat-!cn.mrs" }
   youtube_domain: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/youtube.mrs"}
   google_domain: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/google.mrs"}
@@ -362,7 +367,7 @@ rule-providers:
   gfw_domain: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/gfw.mrs"}
   geolocation-!cn: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/geolocation-!cn.mrs"}
   cn_domain: {!!merge <<: *domain, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geosite/cn.mrs"}
-  
+# 基于IP的规则  
   cn_ip: {!!merge <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/cn.mrs"}
   google_ip: {!!merge <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/google.mrs"}
   telegram_ip: {!!merge <<: *ip, url: "https://raw.githubusercontent.com/MetaCubeX/meta-rules-dat/meta/geo/geoip/telegram.mrs"}
