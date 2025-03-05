@@ -1,4 +1,4 @@
-# 机场订阅，名称不能重复
+# 机场订阅，名称不能重复，可直接使用机场名称，additional-prefix可以节点前自动增加机场名称前缀
 proxy-providers:
   Airport_01:
     type: http
@@ -22,10 +22,6 @@ proxy-providers:
     url: ""
     override:
        additional-prefix: "[Airport_02]"
-
-# 规则订阅
-rule-providers:
-
 
 # 全局配置
 # HTTP(S) 代理服务器端口
@@ -111,7 +107,7 @@ geo-update-interval: 24
 mode: rule
 
 # 控制面板
-external-controller: 0.0.0.0:9095
+external-controller: 0.0.0.0:9090
 secret: ""
 external-ui: "./run/ui"
 external-ui-name: MetaCubeXD
