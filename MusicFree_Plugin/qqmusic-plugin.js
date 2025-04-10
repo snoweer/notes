@@ -3,7 +3,7 @@ module.exports = {
   platform: "QQ音乐",
   author: "Snoweer",
   version: "1.0.0",
-  srcUrl: "https://your-domain.com/qqmusic-plugin.js",
+  srcUrl: "https://raw.githubusercontent.com/snoweer/notes/refs/heads/master/MusicFree_Plugin/qqmusic-plugin.js",
   primaryKey: ["id", "mid"],
   cacheControl: "no-cache",
   hints: {
