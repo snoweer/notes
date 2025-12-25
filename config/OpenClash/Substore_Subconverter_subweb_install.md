@@ -9,7 +9,7 @@ docker run -it -d --restart=always -e "SUB_STORE_BACKEND_SYNC_CRON=55 23 * * *" 
 2、Docker 部署 SubConverter：
 docker run -d --name Sub2Converter --restart=always -p 8255:25500 ghcr.io/metacubex/subconverter:latest  
 
-访问地址：https://subcter.snoweer.cn/sub
+访问地址：https://xxx.xxx.xxx/sub
 
 3、Docker 部署 SubWeb：
 docker run -d --name=Sub-Web -p 8091:80 -e PUID=0 -e PGID=0 -e TZ=Asia/Shanghai --restart always careywong/subweb:latest
