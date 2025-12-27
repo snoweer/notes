@@ -2,15 +2,15 @@
 
 1. https://github.com/ne7359/tvurl [OK影视、tvbox配置文件,]
 2. 影视播放App下载汇总：
-（1）OK影视版本 项目地址：https://github.com/FongMi/TV 支持直播多线路、自动换源、直播倍速，手机投屏；
-（2）q215613905版本 项目地址：https://github.com/q215613905/TVBoxOS 支持直播回放；
-（3）takagen99版本 项目地址：https://github.com/takagen99/Box 支持直播回放，界面美观；
-（4）皮皮虾版本 发布频道：https://t.me/pipixiawerun 支持直播回放，支持弹幕；
-（5）新版猫影视 项目地址：https://github.com/catvod/CatVodOpen 界面简洁，支持多平台。
-（6）手机版本 项目地址：https://github.com/XiaoRanLiu3119/TVBoxOS-Mobile 竖屏
-（7）q215613905 takagen99 编译apk 项目地址：https://github.com/o0HalfLife0o/TVBoxOSC
-（8）酷9 下载地址：https://wwda.lanzoug.com/b00ccbned 支持直播多线路、自动换源，电视友好，有针对老设备的早期安卓版本，强烈推荐，；
-（9）mytv-android 项目地址：https://github.com/mytv-android/mytv-android 支持直播多线路，自动换源，界面简洁，电视友好；
+  - （1）OK影视版本 项目地址：https://github.com/FongMi/TV 支持直播多线路、自动换源、直播倍速，手机投屏；
+  - （2）q215613905版本 项目地址：https://github.com/q215613905/TVBoxOS 支持直播回放；
+  - （3）takagen99版本 项目地址：https://github.com/takagen99/Box 支持直播回放，界面美观；
+  - （4）皮皮虾版本 发布频道：https://t.me/pipixiawerun 支持直播回放，支持弹幕；
+  - （5）新版猫影视 项目地址：https://github.com/catvod/CatVodOpen 界面简洁，支持多平台。
+  - （6）手机版本 项目地址：https://github.com/XiaoRanLiu3119/TVBoxOS-Mobile 竖屏
+  - （7）q215613905 takagen99 编译apk 项目地址：https://github.com/o0HalfLife0o/TVBoxOSC
+  - （8）酷9 下载地址：https://wwda.lanzoug.com/b00ccbned 支持直播多线路、自动换源，电视友好，有针对老设备的早期安卓版本，强烈推荐，；
+  - （9）mytv-android 项目地址：https://github.com/mytv-android/mytv-android 支持直播多线路，自动换源，界面简洁，电视友好；
 
 4. TVBOX资源链接汇总：
 （1）饭太硬：http://www.饭太硬.top/tv/
