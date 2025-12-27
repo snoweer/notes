@@ -159,9 +159,9 @@ proxy-groups:
   - {name: AI-A, <<: *default}
   - {name: AI-S, <<: *default}
   - {name: AI-H, <<: *default}
-  - {name: Google, <<: *default}
-  - {name: GitHub, <<: *default}
   - {name: YouTube, <<: *default}
+  - {name: GitHub, <<: *default}
+  - {name: Google, <<: *default}
   - {name: Microsoft, <<: *default}
   - {name: AppleTV, <<: *default}
   - {name: Apple, <<: *default}
@@ -453,3 +453,4 @@ rule-providers:
   Youtube / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"}  
   Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}  
   Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
+
