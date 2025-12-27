@@ -11,11 +11,10 @@
   - （7）q215613905 takagen99 编译apk 项目地址：https://github.com/o0HalfLife0o/TVBoxOSC
   - （8）酷9 下载地址：https://wwda.lanzoug.com/b00ccbned 支持直播多线路、自动换源，电视友好，有针对老设备的早期安卓版本，强烈推荐，；
   - （9）mytv-android 项目地址：https://github.com/mytv-android/mytv-android 支持直播多线路，自动换源，界面简洁，电视友好；
-
-4. TVBOX资源链接汇总：
-（1）饭太硬：http://www.饭太硬.top/tv/
-（2）okjack：https://jihulab.com/okcaptain/kko/raw/main/ok.txt
-（3）王二小放牛娃：http://tvbox.王二小放牛娃.xyz
+3. TVBOX资源链接汇总：
+  -（1）饭太硬：http://www.饭太硬.top/tv/
+  -（2）okjack：https://jihulab.com/okcaptain/kko/raw/main/ok.txt
+  -（3）王二小放牛娃：http://tvbox.王二小放牛娃.xyz
 （4）摸鱼儿：http://我不是.摸鱼儿.top
 （5）霜辉月明py：https://999740.xyz/raw.githubusercontent.com/lm317379829/PyramidStore/pyramid/py.json
 （6）小米小爆脾气：http://xhww.fun/小米/DEMO.json
