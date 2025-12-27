@@ -24,5 +24,5 @@
   - （10）Ray：https://100km.top/0
   - （11）俊于：http://home.jundie.top:81/top98.json
   - （12）橘子柚：https://mirror.ghproxy.com/https://raw.githubusercontent.com/hackyjso/box/main/jzy.txt
-  - （13）ne7359自用： https://github.moeyy.xyz/raw.githubusercontent.com/qist/tvbox/master/jsm.json 还可以用域名 https://qist.tycng.com/jsm.json
+  - （13）ne7359自用(已fork为TV-URL)： https://github.moeyy.xyz/raw.githubusercontent.com/qist/tvbox/master/jsm.json 还可以用域名 https://qist.tycng.com/jsm.json
 4. github代理地址： https://github.moeyy.xyz https://mirror.ghproxy.com/ https://gh-proxy.com https://ghproxy.net 选择一个速度快使用
