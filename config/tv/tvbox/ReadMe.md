@@ -12,7 +12,7 @@
 （8）酷9 下载地址：https://wwda.lanzoug.com/b00ccbned 支持直播多线路、自动换源，电视友好，有针对老设备的早期安卓版本，强烈推荐，；
 （9）mytv-android 项目地址：https://github.com/mytv-android/mytv-android 支持直播多线路，自动换源，界面简洁，电视友好；
 
-3. TVBOX资源链接汇总：
+4. TVBOX资源链接汇总：
 （1）饭太硬：http://www.饭太硬.top/tv/
 （2）okjack：https://jihulab.com/okcaptain/kko/raw/main/ok.txt
 （3）王二小放牛娃：http://tvbox.王二小放牛娃.xyz
@@ -27,4 +27,4 @@
 （12）橘子柚：https://mirror.ghproxy.com/https://raw.githubusercontent.com/hackyjso/box/main/jzy.txt
 （13）ne7359自用： https://github.moeyy.xyz/raw.githubusercontent.com/qist/tvbox/master/jsm.json 还可以用域名 https://qist.tycng.com/jsm.json
 
-4. github代理地址： https://github.moeyy.xyz https://mirror.ghproxy.com/ https://gh-proxy.com https://ghproxy.net 选择一个速度快使用
+5. github代理地址： https://github.moeyy.xyz https://mirror.ghproxy.com/ https://gh-proxy.com https://ghproxy.net 选择一个速度快使用
