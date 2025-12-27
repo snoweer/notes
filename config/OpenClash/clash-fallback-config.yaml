@@ -163,6 +163,7 @@ proxy-groups:
   - {name: GitHub, <<: *default}
   - {name: YouTube, <<: *default}
   - {name: Microsoft, <<: *default}
+  - {name: AppleTV, <<: *default}
   - {name: Apple, <<: *default}
   - {name: Amazon, <<: *default}
   - {name: Social, <<: *default}
@@ -358,6 +359,7 @@ rules:
   - RULE-SET,GitHub / Domain,GitHub
   - RULE-SET,Youtube / Domain,YouTube
   - RULE-SET,Microsoft / Domain,Microsoft
+  - RULE-SET,AppleTV / Domain,AppleTV
   - RULE-SET,Apple / Domain,Apple
   - RULE-SET,Apple-CN / Domain,Apple
   - RULE-SET,Amazon / Domain,Amazon
@@ -418,6 +420,7 @@ rule-providers:
   WhatsApp / Domain: {<<: *class, url: "https://gh-proxy.com/raw.githubusercontent.com/blackmatrix7/ios_rule_script/refs/heads/master/rule/Clash/Whatsapp/Whatsapp.list"}
   Facebook / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/facebook.mrs"}
   Amazon / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/amazon.mrs"}
+  AppleTV / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple-tvplus.mrs"}
   Apple-CN / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple-cn.mrs"}
   Apple / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/apple.mrs"} 
   Microsoft / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/microsoft.mrs"}
