@@ -354,10 +354,10 @@ rules:
   - RULE-SET,AI / Domain,AI-H
   - RULE-SET,Perplexity / Domain,AI-H
   - RULE-SET,Meta AI / Domain,AI-S
+  - RULE-SET,Youtube / Domain,YouTube
+  - RULE-SET,GitHub / Domain,GitHub
   - RULE-SET,Google / Domain,Google
   - RULE-SET,Google / IP,Google,no-resolve
-  - RULE-SET,GitHub / Domain,GitHub
-  - RULE-SET,Youtube / Domain,YouTube
   - RULE-SET,Microsoft / Domain,Microsoft
   - RULE-SET,AppleTV / Domain,AppleTV
   - RULE-SET,Apple / Domain,Apple
@@ -453,4 +453,5 @@ rule-providers:
   Youtube / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/youtube.mrs"}  
   Google / Domain: {<<: *domain, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geosite/google.mrs"}  
   Google / IP: {<<: *ip, url: "https://gh-proxy.com/github.com/metacubex/meta-rules-dat/raw/refs/heads/meta/geo/geoip/google.mrs"}
+
 
